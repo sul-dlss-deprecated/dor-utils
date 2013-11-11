@@ -1,0 +1,15 @@
+.DS_Store
+config/certs
+config/environments
+.rvmrc
+.yardoc
+coverage
+coverage.data
+pkg
+rdoc
+.bundle
+.idea
+spec/fixtures/export
+.rspec
+.ruby-gemset
+.ruby-version
