@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source "http://sul-gems.stanford.edu"
 
-gem "dor-services", :path => '/Users/wmene/dev/afsgit/lyberteam/dor-services-gem'
+gem "dor-services"
 
 group :development do
   gem "ruby-debug", :platform => :ruby_18
