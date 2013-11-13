@@ -12,12 +12,11 @@ optsparse = OptionParser.new do |opts|
   end
 end
 
+optsparse.parse!
+
 if ARGV.empty?
   puts optsparse
   exit
 end
 
-optsparse.parse!
-
-env_file = File.expand_path(File.dirname(__FILE__) + "/./environments/#{options[:env]}")
-require env_file
+require_relative "environments/#{options[:env]}"
