@@ -18,7 +18,7 @@ class ObjectMerge
       puts USAGE
       exit
     end
-    @csv = CSV.read args.shift
+    @csv = CSV.read args.shift, :headers => false, :converters=> lambda {|f| f ? f.strip : nil}
     @csv.each do |row|
       merge_row row
     end
@@ -36,6 +36,7 @@ class ObjectMerge
       end
       primary = row.shift
       ms = Dor::MergeService.merge_into_primary primary, row, @tag, @logger
+      @logger.info "Merged #{row.size} objects into #{primary}"
     rescue => e
       @logger.error "Problem trying to merge into primary #{primary} : #{e.inspect}"
       @logger.error e.backtrace.join "\n"
