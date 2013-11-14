@@ -13,3 +13,5 @@ spec/fixtures/export
 .rspec
 .ruby-gemset
 .ruby-version
+log
+
