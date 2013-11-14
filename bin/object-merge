@@ -5,11 +5,7 @@ require_relative '../config/boot'
 class ObjectMerge
 
   def initialize
-    if(Dor::Config.merge_log)
-      log = Dor::Config.merge_log
-    else
-      log = STDOUT
-    end
+    log = File.expand_path(File.dirname(__FILE__) + "/../log/merge.log")
     @logger = Logger.new log
   end
 

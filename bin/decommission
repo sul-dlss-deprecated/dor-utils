@@ -5,11 +5,7 @@ require_relative '../config/boot'
 class Decom
 
   def initialize
-    if(Dor::Config.decommission_log)
-      log = Dor::Config.decommission_log
-    else
-      log = STDOUT
-    end
+    log = File.expand_path(File.dirname(__FILE__) + "/../log/decommission.log")
     @logger = Logger.new log
   end
 
