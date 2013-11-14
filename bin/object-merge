@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-USAGE = "Usage: object-merge.rb [-e ENVIRONMENT] ids-to-merge.csv \"Decomission tag\""
+USAGE = "Usage: nohup object-merge.rb [-e ENVIRONMENT] ids-to-merge.csv \"Decomission tag\" >& /dev/null &"
 require_relative '../config/boot'
 
 class ObjectMerge
@@ -19,10 +19,11 @@ class ObjectMerge
       exit
     end
     @csv = CSV.read args.shift, :headers => false, :converters=> lambda {|f| f ? f.strip : nil}
+    @tag = args.shift
+
     @csv.each do |row|
       merge_row row
     end
-    @tag = args.shift
   end
 
   def merge_row row
