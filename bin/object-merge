@@ -7,6 +7,9 @@ class ObjectMerge
   def initialize
     log = File.expand_path(File.dirname(__FILE__) + "/../log/merge.log")
     @logger = Logger.new log
+    @logger.formatter = proc { |severity, datetime, progname, msg|
+      "#{severity} #{datetime}[#{Process.pid}]: #{msg}\n"
+    }
   end
 
   # assumes ARGV.first is path to CSV file of objects to merge

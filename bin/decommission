@@ -7,6 +7,9 @@ class Decom
   def initialize
     log = File.expand_path(File.dirname(__FILE__) + "/../log/decommission.log")
     @logger = Logger.new log
+    @logger.formatter = proc { |severity, datetime, progname, msg|
+      "#{severity} #{datetime}[#{Process.pid}]: #{msg}\n"
+    }
   end
 
   def start args
