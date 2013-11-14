@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+USAGE = "Usage: object-merge.rb [-e ENVIRONMENT] ids-to-merge.csv"
 require_relative '../config/boot'
 
 class ObjectMerge
