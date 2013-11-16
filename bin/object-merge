@@ -18,7 +18,7 @@ class ObjectMerge
       puts USAGE
       exit
     end
-    @csv = CSV.read args.shift, :headers => false, :converters=> lambda {|f| f ? f.strip : nil}
+    @csv = CSV.read args.shift, :headers => false, :skip_blanks => true, :converters=> lambda {|f| f ? f.strip : nil}
     @tag = args.shift
 
     @csv.each do |row|

@@ -41,7 +41,7 @@ class Decom
         Dor::DigitalStacksService.prune_stacks_dir druid
         obj.publish_metadata
         Dor::CleanupService.cleanup_by_druid druid
-
+        Dor::WorkflowService.archive_active_workflow 'dor', druid
         @logger.info "Decomissioned #{druid}"
       rescue => e
         @logger.error "Unable to decomission #{druid} : #{e.inspect}"

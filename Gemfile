@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 source "http://sul-gems.stanford.edu"
 
-gem "dor-services", ">= 4.4.2"
+gem "dor-services", ">= 4.4.3"
 
 group :development do
   gem "ruby-debug", :platform => :ruby_18
