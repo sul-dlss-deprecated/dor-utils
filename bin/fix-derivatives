@@ -1,0 +1,83 @@
+#!/usr/bin/env ruby
+USAGE = "Usage: nohup fix-derivatives [-e ENVIRONMENT] druid >& /dev/null &"
+require_relative '../config/boot'
+require 'pathname'
+require 'assembly-image'
+
+class ShelvingFixer
+
+  def initialize druid, logger
+    @druid = druid
+    @item = Dor::Item.find @druid
+    @stacks_druid = DruidTools::StacksDruid.new @druid, Config.stacks.local_stacks_root
+    @tmp_path = Pathname.new "/imtmp/shelve_fix/#{stacks_druid.id}"
+    @logger = logger
+  end
+
+  def fix
+    unless @item.current_version.to_i == 1
+      @logger.error "Object #{@druid} current version does not equal 1, it is: #{@item.current_version}"
+      return
+    end
+    @logger.info "Fixing #{druid}"
+    cm = @item.contentMetadata.ng_xml
+    cm.xpath('//resource[@type="image"]').each do |resource|
+      display_img = resource.at_xpath "file[@shelve='yes']"
+      if display_img.nil?
+        @logger.error "No shelvable image for object #{druid}, resource sequence# #{resource['sequence']}"
+        next
+      end
+      if(stacks_dr.find_content(display_img['id']).nil?)
+        @logger.info "     Restoring jp2 #{display_img['id']}"
+        master_img = resource.at_xpath "file[@preserve='yes']"
+        if display_img.nil?
+          @logger.error "No preserved image for #{druid}, resource sequence# #{resource['sequence']}"
+          next
+        end
+        tmp_src_img = fetch_file_from_sdr master_img['id']
+        jp2_path = create_jp2 tmp_src_img, display_img['id']
+        FileUtils.cp jp2_path, @stacks_druid.content_dir
+      end
+    end
+    @logger.info"------------------"
+  end
+
+  # Gets preservation file from sdr
+  # @return [String] local path to preservation file
+  def fetch_file_from_sdr file_name
+     @tmp_path.mkpath
+     res = @item.get_preserved_file file_name, '1'
+     src_img = @tmp_path.join(file_name).to_s
+     File.open(src_img, 'wb') do |f|
+       f.write res.body
+     end
+     src_img
+  end
+
+  # Creates jp2 display derivative
+  # @return [String] local path to jp2 display derivative
+  def create_jp2 src_img, new_jp2_name
+    ai = Assembly::Image.new(src_img)
+    tmp_jp2_path = @tmp_path.join(new_jp2_name).to_s
+    ai.create_jp2 :output => tmp_jp2_path
+    tmp_jp2_path
+  end
+
+  # get primary object druid
+  # i = Dor::Item.find druid
+  # stacks_dr = DruidTools::StacksDruid.new druid, Config.stacks.local_stacks_root
+  # get contentMd
+  # for each resource type='image' in contentMd
+  #   if shelve="yes" file does not exist in stacks
+  #     grab preserve="yes" file_id with i.get_preserved_file file_id, 1  # ALL VERSION 1????
+  #     create jp2 from preservation copy
+  #     copy jp2 to /stacks FileUtils.cp jp2, stacks_dr.content_dir
+
+end
+
+log = File.expand_path(File.dirname(__FILE__) + "/../log/shelving_fix.log")
+log.formatter = proc { |severity, datetime, progname, msg|
+  "#{severity} #{datetime}: #{msg}\n"
+}
+ShelvingFixer.new(ARGV.first, log).fix
+

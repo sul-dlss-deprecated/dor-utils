@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-USAGE = "Usage: decomission [-e ENVIRONMENT] druids.txt \"Decomission tag\""
+USAGE = "Usage: decomission [-e ENVIRONMENT] druid:aa123bb4567|druids.txt \"Decomission tag\""
 require_relative '../config/boot'
 
 class Decom
@@ -17,13 +17,18 @@ class Decom
       puts USAGE
       exit
     end
-    lines = IO.readlines(args.shift).map {|l| l.strip}
-    lines.pop if lines.last.empty?
-    @druids = lines.map do |id|
-      if id =~ /^druid:/
-        id
-      else
-        "druid:#{id}"
+    druid_arg = args.shift
+    if DruidTools::Druid.valid? druid_arg
+      @druids = [druid_arg]
+    else
+      lines = IO.readlines(druid_arg).map {|l| l.strip}
+      lines.pop if lines.last.empty?
+      @druids = lines.map do |id|
+        if id =~ /^druid:/
+          id
+        else
+          "druid:#{id}"
+        end
       end
     end
     @tag = args.shift

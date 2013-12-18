@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-USAGE = "Usage: nohup object-merge.rb [-e ENVIRONMENT] ids-to-merge.csv \"Decomission tag\" >& /dev/null &"
+USAGE = "Usage: nohup object-merge [-e ENVIRONMENT] ids-to-merge.csv \"Decomission tag\" >& /dev/null &"
 require_relative '../config/boot'
 
 class ObjectMerge
