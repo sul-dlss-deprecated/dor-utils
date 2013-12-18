@@ -9,8 +9,8 @@ class ShelvingFixer
   def initialize druid, logger
     @druid = druid
     @item = Dor::Item.find @druid
-    @stacks_druid = DruidTools::StacksDruid.new @druid, Config.stacks.local_stacks_root
-    @tmp_path = Pathname.new "/imtmp/shelve_fix/#{stacks_druid.id}"
+    @stacks_druid = DruidTools::StacksDruid.new @druid, Dor::Config.stacks.local_stacks_root
+    @tmp_path = Pathname.new "/imtmp/shelve_fix/#{@stacks_druid.id}"
     @logger = logger
   end
 
@@ -19,19 +19,19 @@ class ShelvingFixer
       @logger.error "Object #{@druid} current version does not equal 1, it is: #{@item.current_version}"
       return
     end
-    @logger.info "Fixing #{druid}"
+    @logger.info "Fixing #{@druid}"
     cm = @item.contentMetadata.ng_xml
     cm.xpath('//resource[@type="image"]').each do |resource|
       display_img = resource.at_xpath "file[@shelve='yes']"
       if display_img.nil?
-        @logger.error "No shelvable image for object #{druid}, resource sequence# #{resource['sequence']}"
+        @logger.error "No shelvable image for object #{@druid}, resource sequence# #{resource['sequence']}"
         next
       end
       if(stacks_dr.find_content(display_img['id']).nil?)
         @logger.info "     Restoring jp2 #{display_img['id']}"
         master_img = resource.at_xpath "file[@preserve='yes']"
         if display_img.nil?
-          @logger.error "No preserved image for #{druid}, resource sequence# #{resource['sequence']}"
+          @logger.error "No preserved image for #{@druid}, resource sequence# #{resource['sequence']}"
           next
         end
         tmp_src_img = fetch_file_from_sdr master_img['id']
@@ -75,7 +75,7 @@ class ShelvingFixer
 
 end
 
-log = File.expand_path(File.dirname(__FILE__) + "/../log/shelving_fix.log")
+log = File.expand_path(File.dirname(__FILE__) + "/../log/fix-derivatives.log")
 log.formatter = proc { |severity, datetime, progname, msg|
   "#{severity} #{datetime}: #{msg}\n"
 }
