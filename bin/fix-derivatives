@@ -27,7 +27,7 @@ class ShelvingFixer
         @logger.error "No shelvable image for object #{@druid}, resource sequence# #{resource['sequence']}"
         next
       end
-      if(stacks_dr.find_content(display_img['id']).nil?)
+      if(@stacks_druid.find_content(display_img['id']).nil?)
         @logger.info "     Restoring jp2 #{display_img['id']}"
         master_img = resource.at_xpath "file[@preserve='yes']"
         if display_img.nil?
@@ -75,7 +75,7 @@ class ShelvingFixer
 
 end
 
-log = File.expand_path(File.dirname(__FILE__) + "/../log/fix-derivatives.log")
+log = Logger.new File.expand_path(File.dirname(__FILE__) + "/../log/fix-derivatives.log")
 log.formatter = proc { |severity, datetime, progname, msg|
   "#{severity} #{datetime}: #{msg}\n"
 }
