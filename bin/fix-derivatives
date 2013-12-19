@@ -48,7 +48,7 @@ class ShelvingFixer
      @tmp_path.mkpath
      res = @item.get_preserved_file file_name, '1'
      unless res.kind_of? Net::HTTPSuccess
-       raise "Bad response from SDR #{@res.code}: #{@res.message}"
+       raise "Bad response from SDR #{res.code}: #{res.message}"
      end
      src_img = @tmp_path.join(file_name).to_s
      File.open(src_img, 'wb') do |f|
