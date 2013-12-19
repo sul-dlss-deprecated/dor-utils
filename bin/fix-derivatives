@@ -63,19 +63,10 @@ class ShelvingFixer
     tmp_jp2_path
   end
 
-  # get primary object druid
-  # i = Dor::Item.find druid
-  # stacks_dr = DruidTools::StacksDruid.new druid, Config.stacks.local_stacks_root
-  # get contentMd
-  # for each resource type='image' in contentMd
-  #   if shelve="yes" file does not exist in stacks
-  #     grab preserve="yes" file_id with i.get_preserved_file file_id, 1  # ALL VERSION 1????
-  #     create jp2 from preservation copy
-  #     copy jp2 to /stacks FileUtils.cp jp2, stacks_dr.content_dir
-
 end
 
 log = Logger.new File.expand_path(File.dirname(__FILE__) + "/../log/fix-derivatives.log")
+log.datetime_format = '%m-%e-%y %H:%M'
 log.formatter = proc { |severity, datetime, progname, msg|
   "#{severity} #{datetime}: #{msg}\n"
 }
