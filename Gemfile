@@ -3,6 +3,7 @@ source "http://sul-gems.stanford.edu"
 
 gem "dor-services", ">= 4.4.3"
 gem "assembly-image"
+gem "assembly-objectfile", ">= 1.6.4"
 
 group :development do
   gem "ruby-debug", :platform => :ruby_18

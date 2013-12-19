@@ -10,6 +10,7 @@ class ShelvingFixer
     @druid = druid
     @item = Dor::Item.find @druid
     @stacks_druid = DruidTools::StacksDruid.new @druid, Dor::Config.stacks.local_stacks_root
+    @workspace_druid = DruidTools::Druid.new @druid, Dor::Config.stacks.local_workspace_root
     @tmp_path = Pathname.new "/imtmp/shelve_fix/#{@stacks_druid.id}"
     @logger = logger
   end
@@ -29,13 +30,21 @@ class ShelvingFixer
       end
       if(@stacks_druid.find_content(display_img['id']).nil?)
         @logger.info "     Restoring jp2 #{display_img['id']}"
-        master_img = resource.at_xpath "file[@preserve='yes']"
-        if master_img.nil?
-          @logger.error "No preserved image for #{@druid}, resource sequence# #{resource['sequence']}"
-          next
+        jp2_path = @workspace_druid.find_content display_img['id']
+
+        if jp2_path
+          @item.clear_diff_cache  # derivative still in workspace.  Clear out the diff cache
+        else
+          master_img = resource.at_xpath "file[@preserve='yes']"
+          if master_img.nil?
+            @logger.error "No preserved image for #{@druid}, resource sequence# #{resource['sequence']}"
+            next
+          end
+
+          tmp_src_img = fetch_file_from_sdr master_img['id']
+          jp2_path = create_jp2 tmp_src_img, display_img['id']
         end
-        tmp_src_img = fetch_file_from_sdr master_img['id']
-        jp2_path = create_jp2 tmp_src_img, display_img['id']
+
         FileUtils.cp jp2_path, @stacks_druid.content_dir
       end
     end
@@ -48,7 +57,7 @@ class ShelvingFixer
      @tmp_path.mkpath
      res = @item.get_preserved_file file_name, '1'
      unless res.kind_of? Net::HTTPSuccess
-       raise "Bad response from SDR #{res.code}: #{res.message}"
+       raise "Problem fetching file '#{file_name}' from SDR #{res.code}: #{res.message}"
      end
      src_img = @tmp_path.join(file_name).to_s
      File.open(src_img, 'wb') do |f|
