@@ -30,7 +30,7 @@ class ShelvingFixer
       if(@stacks_druid.find_content(display_img['id']).nil?)
         @logger.info "     Restoring jp2 #{display_img['id']}"
         master_img = resource.at_xpath "file[@preserve='yes']"
-        if display_img.nil?
+        if master_img.nil?
           @logger.error "No preserved image for #{@druid}, resource sequence# #{resource['sequence']}"
           next
         end
@@ -65,10 +65,29 @@ class ShelvingFixer
 
 end
 
-log = Logger.new File.expand_path(File.dirname(__FILE__) + "/../log/fix-derivatives.log")
-log.datetime_format = '%m-%e-%y %H:%M'
-log.formatter = proc { |severity, datetime, progname, msg|
-  "#{severity} #{datetime}: #{msg}\n"
-}
-ShelvingFixer.new(ARGV.first, log).fix
+class BatchFixer
 
+  def initialize
+    @log = Logger.new File.expand_path(File.dirname(__FILE__) + "/../log/fix-derivatives.log")
+    @log.datetime_format = '%m-%e-%y %H:%M'
+    @log.formatter = proc { |severity, datetime, progname, msg|
+      "#{severity} #{datetime}: #{msg}\n"
+    }
+  end
+
+  def fix args
+    druids = IO.readlines(args.first).map {|l| l.strip }
+
+    druids.each do |druid|
+      begin
+        ShelvingFixer.new(druid, @log).fix
+      rescue => e
+        @log.error "Problem with #{druid} - #{e.inspect}"
+        @log.error e.backtrace.join "\n"
+      end
+    end
+  end
+
+end
+
+BatchFixer.new.fix ARGV
