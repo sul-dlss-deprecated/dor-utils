@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-source "http://sul-gems.stanford.edu"
 
 gem "dor-services", ">= 4.4.3"
 gem "assembly-image"
