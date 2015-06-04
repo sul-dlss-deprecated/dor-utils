@@ -1,6 +1,4 @@
 .DS_Store
-config/certs
-config/environments
 .rvmrc
 .yardoc
 coverage
