@@ -1,0 +1,5 @@
+#
+# The bin/republish tool requires a URL for the dor-services-app endpoint and a logfile
+#
+url: https://user:password@localhost/dor
+log: log/republish.log
