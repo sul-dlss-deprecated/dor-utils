@@ -1,0 +1,4 @@
+# configuration options for bin/virtual-merge
+:log: 'log/virtual-merge.log'
+:debug: false
+:purge: false
