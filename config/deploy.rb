@@ -5,7 +5,7 @@ set :application, 'dor-utils'
 set :repo_url, 'https://github.com/sul-dlss/dor-utils.git'
 
 # Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Prompt for the correct username
 ask(:user, 'enter the app username')
