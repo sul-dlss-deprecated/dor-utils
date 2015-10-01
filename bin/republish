@@ -42,4 +42,3 @@ ARGV.each do |druid|
 end
 
 exit(0)
-  

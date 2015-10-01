@@ -39,6 +39,6 @@ set :linked_files, fetch(:linked_files, []).push('config/republish.yml')
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
-set :stages, %W(dev staging production)
+set :stages, %w(dev staging production)
 
 set :linked_dirs, %w(log config/environments config/certs)

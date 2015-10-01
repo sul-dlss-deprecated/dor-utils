@@ -3,17 +3,16 @@ USAGE = "Usage: decomission [-e ENVIRONMENT] druid:aa123bb4567|druids.txt \"Deco
 require_relative '../config/boot'
 
 class Decom
-
   def initialize
-    log = File.expand_path(File.dirname(__FILE__) + "/../log/decommission.log")
+    log = File.expand_path(File.dirname(__FILE__) + '/../log/decommission.log')
     @logger = Logger.new log
-    @logger.formatter = proc { |severity, datetime, progname, msg|
+    @logger.formatter = proc { |severity, datetime, _progname, msg|
       "#{severity} #{datetime}[#{Process.pid}]: #{msg}\n"
     }
   end
 
-  def start args
-    if(args.size != 2)
+  def start(args)
+    if (args.size != 2)
       puts USAGE
       exit
     end
@@ -21,7 +20,7 @@ class Decom
     if DruidTools::Druid.valid? druid_arg
       @druids = [druid_arg]
     else
-      lines = IO.readlines(druid_arg).map {|l| l.strip}
+      lines = IO.readlines(druid_arg).map(&:strip)
       lines.pop if lines.last.empty?
       @druids = lines.map do |id|
         if id =~ /^druid:/
@@ -54,7 +53,6 @@ class Decom
       end
     end
   end
-
 end
 
 Decom.new.start ARGV

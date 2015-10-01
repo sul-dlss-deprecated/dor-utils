@@ -1,4 +1,4 @@
-cert_dir = File.join(File.dirname(__FILE__), "..", "certs")
+cert_dir = File.join(File.dirname(__FILE__), '..', 'certs')
 
 Dor::Config.configure do
   fedora do
@@ -7,8 +7,8 @@ Dor::Config.configure do
   end
 
   ssl do
-    cert_file File.join(cert_dir,"cert.crt")
-    key_file File.join(cert_dir,"key.key")
+    cert_file File.join(cert_dir, 'cert.crt')
+    key_file File.join(cert_dir, 'key.key')
   end
 
   suri do
@@ -75,7 +75,6 @@ Dor::Config.configure do
     end
   end
 end
-
 
 WORKFLOW_URI = 'http://server.edu/workflow'
 

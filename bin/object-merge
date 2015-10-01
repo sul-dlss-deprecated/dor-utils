@@ -3,22 +3,21 @@ USAGE = "Usage: nohup object-merge [-e ENVIRONMENT] ids-to-merge.csv \"Decomissi
 require_relative '../config/boot'
 
 class ObjectMerge
-
   def initialize
-    log = File.expand_path(File.dirname(__FILE__) + "/../log/merge.log")
+    log = File.expand_path(File.dirname(__FILE__) + '/../log/merge.log')
     @logger = Logger.new log
-    @logger.formatter = proc { |severity, datetime, progname, msg|
+    @logger.formatter = proc { |severity, datetime, _progname, msg|
       "#{severity} #{datetime}[#{Process.pid}]: #{msg}\n"
     }
   end
 
   # assumes ARGV.first is path to CSV file of objects to merge
-  def merge_csv args
+  def merge_csv(args)
     if args.size != 2
       puts USAGE
       exit
     end
-    @csv = CSV.read args.shift, :headers => false, :skip_blanks => true, :converters=> lambda {|f| f ? f.strip : nil}
+    @csv = CSV.read args.shift, headers: false, skip_blanks: true, converters: lambda { |f| f ? f.strip : nil }
     @tag = args.shift
 
     @csv.each do |row|
@@ -26,22 +25,20 @@ class ObjectMerge
     end
   end
 
-  def merge_row row
-    begin
-      ids = row.map do |id|
-        if id =~ /^druid:/
-          id
-        else
-          "druid:#{id}"
-        end
+  def merge_row(row)
+    ids = row.map do |id|
+      if id =~ /^druid:/
+        id
+      else
+        "druid:#{id}"
       end
-      primary = row.shift
-      ms = Dor::MergeService.merge_into_primary primary, row, @tag, @logger
-      @logger.info "Merged #{row.size} objects into #{primary}"
-    rescue => e
-      @logger.error "Problem trying to merge into primary #{primary} : #{e.inspect}"
-      @logger.error e.backtrace.join "\n"
     end
+    primary = row.shift
+    Dor::MergeService.merge_into_primary primary, row, @tag, @logger
+    @logger.info "Merged #{row.size} objects into #{primary}"
+  rescue => e
+    @logger.error "Problem trying to merge into primary #{primary} : #{e.inspect}"
+    @logger.error e.backtrace.join "\n"
   end
 end
 
