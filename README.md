@@ -1,4 +1,4 @@
-= DOR object-merge
+# DOR object-merge
 
 Merges a set of objects (metadata and content) into one primary object
 
