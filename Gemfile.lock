@@ -67,6 +67,7 @@ GEM
     debugger-ruby_core_source (1.2.3)
     deprecation (0.2.2)
       activesupport
+    diff-lcs (1.2.5)
     dlss-capistrano (3.2.0)
       capistrano (~> 3.0)
       capistrano-bundle_audit (>= 0.0.3)
@@ -198,6 +199,19 @@ GEM
       builder (>= 2.1.2)
     rsolr-ext (1.0.3)
       rsolr (>= 1.0.2)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.2)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.1)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
     ruby-cache (0.3.0)
     ruby-debug (0.10.4)
       columnize (>= 0.1)
@@ -262,6 +276,7 @@ DEPENDENCIES
   pry
   pry-debugger
   rcov
+  rspec
   ruby-debug
   simplecov
 

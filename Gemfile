@@ -4,7 +4,8 @@ gem 'dor-services', '~> 4.21', '>= 4.21.0'
 gem 'assembly-image'
 gem 'assembly-objectfile', '>= 1.6.4'
 
-group :development do
+group :development, :test do
+  gem 'rspec'
   gem 'ruby-debug', platform: :ruby_18
   gem 'rcov', platform: :ruby_18
   gem 'simplecov', platform: [:ruby_19, :ruby_20]
