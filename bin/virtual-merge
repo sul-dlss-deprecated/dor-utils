@@ -38,7 +38,7 @@ class VirtualMergeTool
   end
 
   def run(purge = false)
-    @parent.contentMetadata.content = '<contentMetadata/>' if purge
+    @parent.contentMetadata.content = "<contentMetadata objectId='#{@parent.pid}' type='image'/>" if purge
     @child_druids.each do |child|
       begin
         merge(Dor::Item.find(child))
