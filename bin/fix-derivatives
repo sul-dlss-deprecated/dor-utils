@@ -93,6 +93,7 @@ class BatchFixer
       rescue => e
         @log.error "Problem with #{druid} - #{e.inspect}"
         @log.error e.backtrace.join "\n"
+        Honeybadger.notify(e)
       end
     end
   end

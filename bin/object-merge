@@ -39,6 +39,7 @@ class ObjectMerge
   rescue => e
     @logger.error "Problem trying to merge into primary #{primary} : #{e.inspect}"
     @logger.error e.backtrace.join "\n"
+    Honeybadger.notify(e)
   end
 end
 

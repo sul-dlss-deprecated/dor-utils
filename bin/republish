@@ -38,6 +38,7 @@ ARGV.each do |druid|
     end
   rescue => e
     log.error "#{druid}: ERROR: cannot republish: #{e.message}"
+    Honeybadger.notify(e)
   end
 end
 
