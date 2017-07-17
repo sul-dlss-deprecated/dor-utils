@@ -50,6 +50,7 @@ class Decom
       rescue => e
         @logger.error "Unable to decomission #{druid} : #{e.inspect}"
         @logger.error e.backtrace.join("\n")
+        Honeybadger.notify(e)
       end
     end
   end
