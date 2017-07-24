@@ -3,6 +3,7 @@ USAGE = 'Usage: nohup fix-derivatives [-e ENVIRONMENT] druid >& /dev/null &'
 require_relative '../config/boot'
 require 'pathname'
 require 'assembly-image'
+require 'honeybadger'
 
 class ShelvingFixer
   def initialize(druid, logger)
