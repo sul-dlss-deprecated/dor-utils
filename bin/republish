@@ -6,7 +6,6 @@ require 'uri'
 require 'yaml'
 require 'rest-client'
 require 'logger'
-require 'honeybadger'
 
 if ARGV.first == '--help' || ARGV.size < 1
   puts 'Usage: republish druid1 [... druid2 ...]'
