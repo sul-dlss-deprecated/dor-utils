@@ -12,7 +12,6 @@
 require 'logger'
 require 'optparse'
 require 'yaml'
-require 'honeybadger'
 
 require 'dor-services'
 
