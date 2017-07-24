@@ -2,7 +2,6 @@
 USAGE = "Usage: decomission [-e ENVIRONMENT] druid:aa123bb4567|druids.txt \"Decomission tag\""
 require_relative '../config/boot'
 
-require 'honeybadger'
 
 class Decom
   def initialize
