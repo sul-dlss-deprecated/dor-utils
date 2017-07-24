@@ -2,6 +2,7 @@ require 'bundler/setup'
 
 require 'optparse'
 require 'logger'
+require 'honeybadger'
 
 ENV_LOG = Logger.new(File.expand_path(File.dirname(__FILE__) + '/../log/solrizer.log'))
 
