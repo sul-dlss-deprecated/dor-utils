@@ -2,7 +2,6 @@
 USAGE = "Usage: nohup object-merge [-e ENVIRONMENT] ids-to-merge.csv \"Decomission tag\" >& /dev/null &"
 require_relative '../config/boot'
 
-require 'honeybadger'
 
 class ObjectMerge
   def initialize
