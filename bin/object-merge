@@ -2,6 +2,7 @@
 USAGE = "Usage: nohup object-merge [-e ENVIRONMENT] ids-to-merge.csv \"Decomission tag\" >& /dev/null &"
 require_relative '../config/boot'
 
+
 class ObjectMerge
   def initialize
     log = File.expand_path(File.dirname(__FILE__) + '/../log/merge.log')
