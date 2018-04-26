@@ -1,3 +1,5 @@
+NOTE: While this repository was originally intended to be a project where common scripted admin tasks could be maintained, over time it fell out of favor for that purpose. The only task currently required to be maintained is https://github.com/sul-dlss/dor-utils/blob/master/bin/virtual-merge and whatever dependencies it has.
+
 DOR object-merge
 ----------------
 
