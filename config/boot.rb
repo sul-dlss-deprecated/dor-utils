@@ -3,15 +3,6 @@ require 'bundler/setup'
 require 'optparse'
 require 'logger'
 require 'honeybadger'
-
-ENV_LOG = Logger.new(File.expand_path(File.dirname(__FILE__) + '/../log/solrizer.log'))
-
-begin
-  require 'solrizer'
-  Solrizer.logger = ENV_LOG
-rescue LoadError, NameError, NoMethodError
-end
-
 require 'dor-services'
 
 # Load the environment file based on Environment.  Default to development
