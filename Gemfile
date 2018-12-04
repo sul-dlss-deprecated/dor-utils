@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'dor-services', '~> 4.21', '>= 4.21.0'
+gem 'dor-services', '~> 6.0'
 gem 'honeybadger'
 
 group :development, :test do
