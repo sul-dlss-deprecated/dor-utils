@@ -1,13 +1,9 @@
-.DS_Store
 .rvmrc
 .yardoc
 coverage
 coverage.data
-pkg
 rdoc
 .bundle
-.idea
-spec/fixtures/export
 .rspec
 .ruby-gemset
 .ruby-version
