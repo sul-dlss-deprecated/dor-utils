@@ -20,7 +20,6 @@ Dor::Config.configure do
   end
 
   metadata do
-    exist.url 'http://user:pword@server.edu/exist/rest/'
     catalog.url 'http://server.edu/catalog/mods'
   end
 
