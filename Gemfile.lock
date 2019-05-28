@@ -85,12 +85,13 @@ GEM
       stanford-mods (>= 2.3.1)
       stanford-mods-normalizer (~> 0.1)
       systemu (~> 2.6)
-    dor-services-client (1.8.0)
+    dor-services-client (1.9.2)
       activesupport (>= 4.2, < 6)
       deprecation
       faraday (~> 0.15)
       moab-versioning (~> 4.0)
       nokogiri (~> 1.8)
+      zeitwerk (~> 2.1)
     dor-workflow-service (2.12.0)
       activesupport (>= 3.2.1, < 6)
       confstruct (>= 0.2.7, < 2)
@@ -106,7 +107,7 @@ GEM
       nokogiri (>= 1.4.3)
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
-    haml (5.1.0)
+    haml (5.1.1)
       temple (>= 0.8.0)
       tilt
     honeybadger (4.3.0)
@@ -241,6 +242,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.6)
     xml-simple (1.1.5)
+    zeitwerk (2.1.6)
 
 PLATFORMS
   ruby

@@ -2,8 +2,8 @@ notifications:
   email: false
 
 rvm:
-  - 2.3.7 # deployed
-  - 2.4.4
+  - 2.5.3 # deployed
+  - 2.6
 
 env:
   global:
