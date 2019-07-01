@@ -191,7 +191,7 @@ GEM
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
-    rspec-core (3.8.1)
+    rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-expectations (3.8.4)
       diff-lcs (>= 1.2.0, < 2.0)
@@ -221,7 +221,7 @@ GEM
       nokogiri
       stomp
       xml-simple
-    sshkit (1.18.2)
+    sshkit (1.19.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stanford-mods (2.6.1)
@@ -242,7 +242,7 @@ GEM
       unf_ext
     unf_ext (0.0.7.6)
     xml-simple (1.1.5)
-    zeitwerk (2.1.6)
+    zeitwerk (2.1.8)
 
 PLATFORMS
   ruby
