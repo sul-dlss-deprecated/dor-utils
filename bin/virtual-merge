@@ -33,7 +33,7 @@ class VirtualMergeTool
       @logger.info "adding virtual resource #{resource['id']} of type #{resource['type']} to parent #{@parent.pid}"
       @parent.datastreams['contentMetadata'].add_virtual_resource(child.pid, resource)
     end
-    child.add_constituent(@parent.pid)
+    child.add_relationship :is_constituent_of, @parent
     child.save
   end
 
