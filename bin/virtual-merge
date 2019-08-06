@@ -44,7 +44,8 @@ class VirtualMergeTool
         merge(Dor::Item.find(child))
       rescue => e
         @logger.error "#{e}: #{e.backtrace.join("\n")}"
-        Honeybadger.notify(e)
+        # logging output is sufficient for a script
+        # Honeybadger.notify(e)
       end
     end
     @parent.save
